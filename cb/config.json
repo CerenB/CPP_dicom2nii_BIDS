@@ -24,10 +24,54 @@
             "modalityLabel": "bold",
             "customLabels": "task-RhythmFT_dir-reversedPhase",
             "criteria": {
-                "SeriesDescription": "*Ax_Corr_RhythmFT*"
+                "SeriesDescription": "*Ax_CorrRhythmFT_Run*"
             },
             "sidecarChanges": {
-                "SeriesDescription": "*Ax_Corr_RhythmFT*"
+                "SeriesDescription": "*Ax_CorrRhythmFT_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-PitchFT",
+            "criteria": {
+                "SeriesDescription": "*Ax_PitchFT_Run*"
+            },
+            "sidecarChanges": {
+                "SeriesDescription": "*Ax_PitchFT_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-PitchFT_dir-reversedPhase",
+            "criteria": {
+                "SeriesDescription": "*Ax_CorrPitchFT_Run*"
+            },
+            "sidecarChanges": {
+                "SeriesDescription": "*Ax_CorrPitchFT_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-RhythmBlock",
+            "criteria": {
+                "SeriesDescription": "*Ax_Block_Run*"
+            },
+            "sidecarChanges": {
+                "SeriesDescription": "*Ax_Block_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-RhythmBlock_dir-reversedPhase",
+            "criteria": {
+                "SeriesDescription": "*Ax_CorrBlock_Run*"
+            },
+            "sidecarChanges": {
+                "SeriesDescription": "*Ax_CorrBlock_Run*"
             }
         }
     ]
