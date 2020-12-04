@@ -1,0 +1,34 @@
+{
+    "searchMethod": "fnmatch",
+    "descriptions": [
+        {
+            "dataType": "anat",
+            "modalityLabel": "T1w",
+            "criteria": {
+                "SeriesDescription": "*MPRAGE*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-RhythmFT",
+            "criteria": {
+                "SeriesDescription": "*Ax_RhythmFT_Run*"
+            },
+            "sidecarChanges": {
+                "SeriesDescription": "*Ax_RhythmFT_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-RhythmFT_dir-reversedPhase",
+            "criteria": {
+                "SeriesDescription": "*Ax_Corr_RhythmFT*"
+            },
+            "sidecarChanges": {
+                "SeriesDescription": "*Ax_Corr_RhythmFT*"
+            }
+        }
+    ]
+}

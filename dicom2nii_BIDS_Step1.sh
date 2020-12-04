@@ -7,7 +7,8 @@
 # To install dcm2bids: https://pypi.org/project/dcm2bids/
 
 # BIDS outout folder
-BIDSOutputFolder=/Volumes/SanDisk/Workshop/visMotion_V3
+BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/nii
+#BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source
 
 # if BIDSOutputFolder does not exist
 if [ ! -d $BIDSOutputFolder ]; then
@@ -18,10 +19,13 @@ fi
 ##############   GROUP 1   #############
 ########################################
 # Subject Names (folder names)
-#Subjs=("AlSo"	"BrCh") #	"OlCo"	"PiMa"	"SyNo"	"ViCh"	"WiAu" "JoFr"	"MpLa"	"PhAL"	"SiGi"	"VaLa"	"ViCr")
+Subjs=("sub-002") #	"OlCo"	"PiMa"	"SyNo"	"ViCh"	"WiAu" "JoFr"	"MpLa"	"PhAL"	"SiGi"	"VaLa"	"ViCr")
 #SubjsNumbers=("2" "3")
-#group=''     # Group
-dicomsRootFolder=/Volumes/SanDisk/Workshop/visMotion_V3/sourcedata/    # DICOMS root folder
+group=''     # Group
+dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/ima  # DICOMS root folder
+#dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/ima
+
+
 
 ########################################
 ##############   GROUP 2   #############
