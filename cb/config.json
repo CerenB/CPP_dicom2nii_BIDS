@@ -14,9 +14,6 @@
             "customLabels": "task-RhythmFT",
             "criteria": {
                 "SeriesDescription": "*Ax_RhythmFT_Run*"
-            },
-            "sidecarChanges": {
-                "SeriesDescription": "*Ax_RhythmFT_Run*"
             }
         },
         {
@@ -24,9 +21,6 @@
             "modalityLabel": "bold",
             "customLabels": "task-RhythmFT_dir-reversedPhase",
             "criteria": {
-                "SeriesDescription": "*Ax_CorrRhythmFT_Run*"
-            },
-            "sidecarChanges": {
                 "SeriesDescription": "*Ax_CorrRhythmFT_Run*"
             }
         },
@@ -36,9 +30,6 @@
             "customLabels": "task-PitchFT",
             "criteria": {
                 "SeriesDescription": "*Ax_PitchFT_Run*"
-            },
-            "sidecarChanges": {
-                "SeriesDescription": "*Ax_PitchFT_Run*"
             }
         },
         {
@@ -46,9 +37,6 @@
             "modalityLabel": "bold",
             "customLabels": "task-PitchFT_dir-reversedPhase",
             "criteria": {
-                "SeriesDescription": "*Ax_CorrPitchFT_Run*"
-            },
-            "sidecarChanges": {
                 "SeriesDescription": "*Ax_CorrPitchFT_Run*"
             }
         },
@@ -58,9 +46,6 @@
             "customLabels": "task-RhythmBlock",
             "criteria": {
                 "SeriesDescription": "*Ax_Block_Run*"
-            },
-            "sidecarChanges": {
-                "SeriesDescription": "*Ax_Block_Run*"
             }
         },
         {
@@ -68,9 +53,6 @@
             "modalityLabel": "bold",
             "customLabels": "task-RhythmBlock_dir-reversedPhase",
             "criteria": {
-                "SeriesDescription": "*Ax_CorrBlock_Run*"
-            },
-            "sidecarChanges": {
                 "SeriesDescription": "*Ax_CorrBlock_Run*"
             }
         }
