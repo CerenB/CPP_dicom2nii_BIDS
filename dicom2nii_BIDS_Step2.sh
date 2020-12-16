@@ -7,8 +7,7 @@
 # To install dcm2bids: https://pypi.org/project/dcm2bids/
 
 # BIDS outout folder
-BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/nii
-#BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source
+BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-006/ses-002/nii
 
 # if BIDSOutputFolder does not exist
 if [ ! -d $BIDSOutputFolder ]; then
@@ -19,13 +18,13 @@ numDummies=0        # Number of dummies to remove
 deleteOriginal=1    # Delete original after removing dummies
 
 # Subject Names (folder names)
-Subjs=("sub-002")  #	"OlCo" "PiMa"	"SyNo"	"ViCh"	"WiAu" "JoFr"	"MpLa"	"PhAL" "SiGi"	"VaLa"	"ViCr")
-SubjsNumbers=("2")
+Subjs=("sub-006")
+SubjsNumbers=("6")
 group=''     # Group
-Tasks=("RhythmFT" "RhythmFT_dir-reversedPhase" "RhythmBlock" "RhythmBlock_dir-reversedPhase" "PitchFT" "PitchFT_dir-reversedPhase")
+Tasks=("RhythmFT" "RhythmFT_dir-reversedPhase" "PitchFT" "PitchFT_dir-reversedPhase" "RhythmBlock" "RhythmBlock_dir-reversedPhase")
+#
 
-#dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/ima
-dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/ima  # DICOMS root folder
+dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-006/ses-002/ima  # DICOMS root folder
 
 WD=$(pwd)
 
@@ -49,13 +48,13 @@ do
 
 
 
-  # Does all the work - dicom to .nii
-      subDicomFolder=$dicomsRootFolder         ## <---------- CHANGE THE LOCATION
-      #subOutputFolder=$BIDSOutputFolder
-      #echo $SubName $iSubNum $subOutputFolder
-      echo "DICOMS folder is: "$subDicomFolder
-      echo "Output folder is: "$BIDSOutputFolder
-      dcm2bids -d $subDicomFolder -p $group$iSubNum -s 001 -c config.json -o $BIDSOutputFolder
+  # # Does all the work - dicom to .nii
+  #     subDicomFolder=$dicomsRootFolder         ## <---------- CHANGE THE LOCATION
+  #     #subOutputFolder=$BIDSOutputFolder
+  #     #echo $SubName $iSubNum $subOutputFolder
+  #     echo "DICOMS folder is: "$subDicomFolder
+  #     echo "Output folder is: "$BIDSOutputFolder
+  #     dcm2bids -d $subDicomFolder -p $group$iSubNum -s 001 -c config.json -o $BIDSOutputFolder
 
   ################################################################################
   # dcm2bids inputs:
@@ -70,39 +69,46 @@ do
   #### RHYTHM CATEG  PROJECT #####
 
   ################################################################################
-#   for iTask in "${!Tasks[@]}"
-#   do
-#
-#     # taskName=${#Tasks[@]}
-#     taskName="${Tasks[$iTask]}"
-#     echo 'Task Name : '$taskName
-#
-#     ## Functional data - 1
-#     # remove Dummies
-#     # taskName='RhythmFT'                     ## <---------- CHANGE THE TASK NAME
-#     for iRun in {1..9}
-#     do
-#       runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
-#       echo 'runNumber: '$runNumber
-#
-#       #change file names with correct zero-padding for runNumber
-#       fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
-#       fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.nii.gz'
-#
-#       mv "$fileOLD" "$fileRENAME"
-#
-#       fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
-#       fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.json'
-#
-#       mv "$fileJSON" "$fileRENAMEJSON"
-#
-#       #remove dummies
-#       echo $fileRENAME
-#       cd $WD
-#       python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
-#       cd $BIDSOutputFolder
-#     done
-# done
+  for iTask in "${!Tasks[@]}"
+  do
+
+    # taskName=${#Tasks[@]}
+    taskName="${Tasks[$iTask]}"
+    echo 'Task Name : '$taskName
+
+    ## Functional data - 1
+    # remove Dummies
+    for iRun in {1..5}
+    do
+      num=$((iRun + 4)) # 
+      increaserunNumber="$(printf "%02d" $num)"
+
+      runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
+      echo 'runNumber: '$runNumber
+
+      #change file names with correct zero-padding for runNumber
+      fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
+      fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$increaserunNumber'_bold.nii.gz'
+
+      mv "$fileOLD" "$fileRENAME"
+
+      fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
+      fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$increaserunNumber'_bold.json'
+
+      mv "$fileJSON" "$fileRENAMEJSON"
+
+      #remove dummies
+      echo $fileRENAME
+      cd $WD
+      python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
+      cd $BIDSOutputFolder
+
+      ### matlab script for correctly renaming the .nii and .json runs
+      # matlab -nodesktop -nosplash
+      ###
+
+    done
+done
   ################################################################################
   ##### MOEBIUS PROJECT #####
   ################################################################################

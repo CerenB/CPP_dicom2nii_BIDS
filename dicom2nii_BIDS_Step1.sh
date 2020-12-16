@@ -7,7 +7,7 @@
 # To install dcm2bids: https://pypi.org/project/dcm2bids/
 
 # BIDS outout folder
-BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/nii
+BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-003/ses-002/nii
 #BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source
 
 # if BIDSOutputFolder does not exist
@@ -19,23 +19,11 @@ fi
 ##############   GROUP 1   #############
 ########################################
 # Subject Names (folder names)
-Subjs=("sub-002") #	"OlCo"	"PiMa"	"SyNo"	"ViCh"	"WiAu" "JoFr"	"MpLa"	"PhAL"	"SiGi"	"VaLa"	"ViCr")
+Subjs=("sub-003")
 #SubjsNumbers=("2" "3")
 group=''     # Group
-dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/ima  # DICOMS root folder
+dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-003/ses-002/ima  # DICOMS root folder
 #dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/ima
-
-
-
-########################################
-##############   GROUP 2   #############
-########################################
-#Subjs=("AlBo"	"CaBa"	"CaPi"	"ChRe"	"IaWa"	"JoSn"	"MiDo"	"NaAs"	"SaAt"	"WiSn"	"ZaCr")
-#Subjs=("AlBo"	"CaBa")
-#group='cat'
-#dicomsRootFolder=/Data/Neurocat_BIDS/DICOMS/Cataract/      # DICOMS root folder
-
-########################################
 
 # Go to the BIDS output directory
 cd $BIDSOutputFolder
