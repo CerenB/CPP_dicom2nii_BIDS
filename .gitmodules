@@ -1,0 +1,3 @@
+[submodule "lib/Dcm2Bids"]
+	path = lib/Dcm2Bids
+	url = https://github.com/UNFmontreal/Dcm2Bids
