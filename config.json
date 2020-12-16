@@ -11,12 +11,49 @@
         {
             "dataType": "func",
             "modalityLabel": "bold",
-            "customLabels": "task-visMotion",
+            "customLabels": "task-RhythmFT",
             "criteria": {
-                "SeriesDescription": "*Motion*"
-            },
-            "sidecarChanges": {
-                "SeriesDescription": "*Motion*"
+                "SeriesDescription": "*Ax_RhythmFT_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-RhythmFT_dir-reversedPhase",
+            "criteria": {
+                "SeriesDescription": "*Ax_CorrRhythmFT_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-PitchFT",
+            "criteria": {
+                "SeriesDescription": "*Ax_PitchFT_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-PitchFT_dir-reversedPhase",
+            "criteria": {
+                "SeriesDescription": "*Ax_CorrPitchFT_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-RhythmBlock",
+            "criteria": {
+                "SeriesDescription": "*Ax_Block_Run*"
+            }
+        },
+        {
+            "dataType": "func",
+            "modalityLabel": "bold",
+            "customLabels": "task-RhythmBlock_dir-reversedPhase",
+            "criteria": {
+                "SeriesDescription": "*Ax_CorrBlock_Run*"
             }
         }
     ]
