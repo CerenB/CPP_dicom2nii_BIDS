@@ -7,7 +7,7 @@
 # To install dcm2bids: https://pypi.org/project/dcm2bids/
 
 # BIDS outout folder
-BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-006/ses-002/nii
+BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-011/ses-002/nii
 
 # if BIDSOutputFolder does not exist
 if [ ! -d $BIDSOutputFolder ]; then
@@ -18,13 +18,13 @@ numDummies=0        # Number of dummies to remove
 deleteOriginal=1    # Delete original after removing dummies
 
 # Subject Names (folder names)
-Subjs=("sub-006")
-SubjsNumbers=("6")
+Subjs=("sub-011")
+SubjsNumbers=("11")
 group=''     # Group
-Tasks=("RhythmFT" "RhythmFT_dir-reversedPhase" "PitchFT" "PitchFT_dir-reversedPhase" "RhythmBlock" "RhythmBlock_dir-reversedPhase")
+Tasks=("RhythmFT" "RhythmFT_dir-reversedPhase" "PitchFT" "PitchFT_dir-reversedPhase"  "RhythmBlock" "RhythmBlock_dir-reversedPhase")
 #
 
-dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-006/ses-002/ima  # DICOMS root folder
+dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-011/ses-002/ima  # DICOMS root folder
 
 WD=$(pwd)
 
@@ -48,13 +48,13 @@ do
 
 
 
-  # # Does all the work - dicom to .nii
-  #     subDicomFolder=$dicomsRootFolder         ## <---------- CHANGE THE LOCATION
-  #     #subOutputFolder=$BIDSOutputFolder
-  #     #echo $SubName $iSubNum $subOutputFolder
-  #     echo "DICOMS folder is: "$subDicomFolder
-  #     echo "Output folder is: "$BIDSOutputFolder
-  #     dcm2bids -d $subDicomFolder -p $group$iSubNum -s 001 -c config.json -o $BIDSOutputFolder
+  # Does all the work - dicom to .nii
+      subDicomFolder=$dicomsRootFolder         ## <---------- CHANGE THE LOCATION
+      #subOutputFolder=$BIDSOutputFolder
+      #echo $SubName $iSubNum $subOutputFolder
+      echo "DICOMS folder is: "$subDicomFolder
+      echo "Output folder is: "$BIDSOutputFolder
+      # dcm2bids -d $subDicomFolder -p $group$iSubNum -s 001 -c config.json -o $BIDSOutputFolder
 
   ################################################################################
   # dcm2bids inputs:

@@ -6,8 +6,16 @@
 # to a BIDS compaitable format.
 # To install dcm2bids: https://pypi.org/project/dcm2bids/
 
+# add dependency library
+# PATH="/your/script/dir:${PATH}"
+# export PATH
+
+# export PATH=$PATH:${PWD}/lib
+# echo $PATH
+# export PATH=$PATH:/Users/battal/Documents/GitHub/CPPLab/Dcm2Bids
+
 # BIDS outout folder
-BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-003/ses-002/nii
+BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-008/ses-002/nii
 #BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source
 
 # if BIDSOutputFolder does not exist
@@ -19,11 +27,10 @@ fi
 ##############   GROUP 1   #############
 ########################################
 # Subject Names (folder names)
-Subjs=("sub-003")
+Subjs=("sub-008")
 #SubjsNumbers=("2" "3")
 group=''     # Group
-dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-003/ses-002/ima  # DICOMS root folder
-#dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-002/ses-001/ima
+dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-008/ses-002/ima  # DICOMS root folder
 
 # Go to the BIDS output directory
 cd $BIDSOutputFolder
