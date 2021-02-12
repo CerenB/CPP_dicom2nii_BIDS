@@ -7,7 +7,8 @@
 # To install dcm2bids: https://pypi.org/project/dcm2bids/
 
 # BIDS outout folder
-BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-011/ses-002/nii
+#BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-011/ses-002/nii
+BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/MoebiusProject/source/sub-005/ses-001/nii
 
 # if BIDSOutputFolder does not exist
 if [ ! -d $BIDSOutputFolder ]; then
@@ -18,13 +19,13 @@ numDummies=0        # Number of dummies to remove
 deleteOriginal=1    # Delete original after removing dummies
 
 # Subject Names (folder names)
-Subjs=("sub-011")
-SubjsNumbers=("11")
+Subjs=("sub-005")
+SubjsNumbers=("5")
 group=''     # Group
-Tasks=("RhythmFT" "RhythmFT_dir-reversedPhase" "PitchFT" "PitchFT_dir-reversedPhase"  "RhythmBlock" "RhythmBlock_dir-reversedPhase")
-#
-
-dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-011/ses-002/ima  # DICOMS root folder
+#Tasks=("RhythmFT" "RhythmFT_dir-reversedPhase" "PitchFT" "PitchFT_dir-reversedPhase"  "RhythmBlock" "RhythmBlock_dir-reversedPhase")
+Tasks=("FEexe" "FEobserv" )
+#dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-011/ses-002/ima  # DICOMS root folder
+dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/MoebiusProject/source/sub-005/ses-001/ima
 
 WD=$(pwd)
 
@@ -54,7 +55,7 @@ do
       #echo $SubName $iSubNum $subOutputFolder
       echo "DICOMS folder is: "$subDicomFolder
       echo "Output folder is: "$BIDSOutputFolder
-      # dcm2bids -d $subDicomFolder -p $group$iSubNum -s 001 -c config.json -o $BIDSOutputFolder
+      dcm2bids -d $subDicomFolder -p $group$iSubNum -s 001 -c config.json -o $BIDSOutputFolder
 
   ################################################################################
   # dcm2bids inputs:
@@ -69,222 +70,47 @@ do
   #### RHYTHM CATEG  PROJECT #####
 
   ################################################################################
-  for iTask in "${!Tasks[@]}"
-  do
-
-    # taskName=${#Tasks[@]}
-    taskName="${Tasks[$iTask]}"
-    echo 'Task Name : '$taskName
-
-    ## Functional data - 1
-    # remove Dummies
-    for iRun in {1..5}
-    do
-      num=$((iRun + 4)) # 
-      increaserunNumber="$(printf "%02d" $num)"
-
-      runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
-      echo 'runNumber: '$runNumber
-
-      #change file names with correct zero-padding for runNumber
-      fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
-      fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$increaserunNumber'_bold.nii.gz'
-
-      mv "$fileOLD" "$fileRENAME"
-
-      fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
-      fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$increaserunNumber'_bold.json'
-
-      mv "$fileJSON" "$fileRENAMEJSON"
-
-      #remove dummies
-      echo $fileRENAME
-      cd $WD
-      python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
-      cd $BIDSOutputFolder
-
-      ### matlab script for correctly renaming the .nii and .json runs
-      # matlab -nodesktop -nosplash
-      ###
-
-    done
-done
-  ################################################################################
-  ##### MOEBIUS PROJECT #####
-  ################################################################################
-
-
-#   ## 2.1. Geometric Distortion data - 1
-#   #rename the run-0x to run-00x
-#   # remove Dummies
-#   taskName='FEexe_dir-reversedPhase'                     ## <---------- CHANGE THE TASK NAME
-#   for iRun in {4..4}
+#   for iTask in "${!Tasks[@]}"
 #   do
-#     runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
-#     echo 'runNumber: '$runNumber
 #
-#     #change file names with correct zero-padding for runNumber
-#     #fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
-#     fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_bold.nii.gz'
-#     fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.nii.gz'
+#     # taskName=${#Tasks[@]}
+#     taskName="${Tasks[$iTask]}"
+#     echo 'Task Name : '$taskName
 #
-#     mv "$fileOLD" "$fileRENAME"
-#     #fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
-#     fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_bold.json'
-#     fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.json'
+#     ## Functional data - 1
+#     # remove Dummies
+#     for iRun in {1..5}
+#     do
+#       num=$((iRun)) # + 4
+#       increaserunNumber="$(printf "%02d" $num)"
 #
-#     mv "$fileJSON" "$fileRENAMEJSON"
+#       runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
+#       echo 'runNumber: '$runNumber
 #
-#     echo $fileRENAME
-#     cd $WD
-#     python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
-#     cd $BIDSOutputFolder
-#   done
+#       #change file names with correct zero-padding for runNumber
+#       fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
+#       fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$increaserunNumber'_bold.nii.gz'
 #
+#       # mv "$fileOLD" "$fileRENAME"
 #
-#   ################################################################################
+#       fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
+#       fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$increaserunNumber'_bold.json'
 #
+#       # mv "$fileJSON" "$fileRENAMEJSON"
 #
-#   ## 3.1. Functional data - 1
-#   # remove Dummies
-#   taskName='FEexe'                     ## <---------- CHANGE THE TASK NAME
-#   for iRun in {1..4}
-#   do
-#     runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
-#     echo 'runNumber: '$runNumber
+#       #remove dummies
+#       echo $fileRENAME
+#       cd $WD
+#       python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
+#       cd $BIDSOutputFolder
 #
-#     #change file names with correct zero-padding for runNumber
-#     fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
-#     fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.nii.gz'
+#       ### matlab script for correctly renaming the .nii and .json runs
+#       # matlab -nodesktop -nosplash
+#       ###
 #
-#     mv "$fileOLD" "$fileRENAME"
-#
-#     fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
-#     fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.json'
-#
-#     mv "$fileJSON" "$fileRENAMEJSON"
-#
-#     #remove dummies
-#     echo $fileRENAME
-#     cd $WD
-#     python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
-#     cd $BIDSOutputFolder
-#   done
-#
-#   ################################################################################
-#
-#   ## 4.1. Geometric Distortion data - 2
-#   #rename the run-0x to run-00x
-#   # remove Dummies
-#   taskName='FEobserv_dir-reversedPhase'                     ## <---------- CHANGE THE TASK NAME
-#   for iRun in {4..4}
-#   do
-#     runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
-#     echo 'runNumber: '$runNumber
-#
-#     #change file names with correct zero-padding for runNumber
-#     #fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
-#     fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_bold.nii.gz'
-#     fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.nii.gz'
-#
-#     mv "$fileOLD" "$fileRENAME"
-#     #fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
-#     fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_bold.json'
-#     fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.json'
-#
-#     mv "$fileJSON" "$fileRENAMEJSON"
-#
-#     echo $fileRENAME
-#     cd $WD
-#     python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
-#     cd $BIDSOutputFolder
-#   done
-#
-#
-# ################################################################################
-#   #
-#   ## 5.1. Functional data - 2
-#   # remove Dummies
-#   taskName='FEobserv'                     ## <---------- CHANGE THE TASK NAME
-#   for iRun in {1..4}
-#   do
-#        runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
-#        echo 'runNumber: '$runNumber
-#
-#        #change file names with correct zero-padding for runNumber
-#        fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
-#        fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.nii.gz'
-#
-#        mv "$fileOLD" "$fileRENAME"
-#
-#        fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
-#        fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.json'
-#
-#        mv "$fileJSON" "$fileRENAMEJSON"
-#
-#        #remove dummies
-#        echo $fileRENAME
-#        cd $WD
-#        python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
-#        cd $BIDSOutputFolder
-#    done
-#
-# ################################################################################
-#
-#   ## 5.1. Functional data - 3
-#   # remove Dummies
-#   taskName='LipReading'                     ## <---------- CHANGE THE TASK NAME
-#   for iRun in {1..4}
-#   do
-#        runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
-#        echo 'runNumber: '$runNumber
-#
-#        #change file names with correct zero-padding for runNumber
-#        fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
-#        fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.nii.gz'
-#
-#        mv "$fileOLD" "$fileRENAME"
-#
-#        fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
-#        fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.json'
-#
-#        mv "$fileJSON" "$fileRENAMEJSON"
-#
-#        #remove dummies
-#        echo $fileRENAME
-#        cd $WD
-#        python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
-#        cd $BIDSOutputFolder
-#    done
-#
-#
-#    ## 4.1. Geometric Distortion data - 3
-#    #rename the run-0x to run-00x
-#    # remove Dummies
-#    taskName='LipReading_dir-reversedPhase'                     ## <---------- CHANGE THE TASK NAME
-#    for iRun in {4..4}
-#    do
-#      runNumber="$(printf "%02d" $iRun)"  # Get the subject Number
-#      echo 'runNumber: '$runNumber
-#
-#      #change file names with correct zero-padding for runNumber
-#      #fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.nii.gz'
-#      fileOLD=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_bold.nii.gz'
-#      fileRENAME=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.nii.gz'
-#
-#      mv "$fileOLD" "$fileRENAME"
-#      #fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-'$runNumber'_bold.json'
-#      fileJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_bold.json'
-#      fileRENAMEJSON=$BIDSOutputFolder'/sub-'$group$iSubNum'/ses-001/func/''sub-'$group$iSubNum'_ses-001_task-'$taskName'_run-0'$runNumber'_bold.json'
-#
-#      mv "$fileJSON" "$fileRENAMEJSON"
-#
-#      echo $fileRENAME
-#      cd $WD
-#      python remove_dummies.py $fileRENAME $numDummies $deleteOriginal
-#      cd $BIDSOutputFolder
-#    done
-
+#     done
+# done
+  
   ################################################################################
   # ## if you have 1 run use below:
   #    #file=$BIDSOutputFolder'/sub-'$group$iSubNum'_ses-001_task-'$taskName'_bold.nii.gz'

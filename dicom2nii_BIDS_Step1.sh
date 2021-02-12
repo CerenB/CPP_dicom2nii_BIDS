@@ -15,8 +15,8 @@
 # export PATH=$PATH:/Users/battal/Documents/GitHub/CPPLab/Dcm2Bids
 
 # BIDS outout folder
-BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-008/ses-002/nii
-#BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source
+#BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-008/ses-002/nii
+BIDSOutputFolder=/Users/battal/Cerens_files/fMRI/Processed/MoebiusProject/source/sub-005/ses-001/nii
 
 # if BIDSOutputFolder does not exist
 if [ ! -d $BIDSOutputFolder ]; then
@@ -27,10 +27,11 @@ fi
 ##############   GROUP 1   #############
 ########################################
 # Subject Names (folder names)
-Subjs=("sub-008")
+Subjs=("sub-005")
 #SubjsNumbers=("2" "3")
 group=''     # Group
-dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-008/ses-002/ima  # DICOMS root folder
+#dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/RhythmCateg/Pilots/RhythmFT/source/sub-008/ses-002/ima  # DICOMS root folder
+dicomsRootFolder=/Users/battal/Cerens_files/fMRI/Processed/MoebiusProject/source/sub-005/ses-001/ima
 
 # Go to the BIDS output directory
 cd $BIDSOutputFolder
